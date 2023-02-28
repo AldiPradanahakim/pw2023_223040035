@@ -8,6 +8,6 @@ while ($no_angkot <= $jumlah_angkot - $angkot_rusak) {
     $no_angkot++;
 }
 
-for ($no_angkot; $angkot <= $jumlah_angkot; $no_angkot++) {
-    echo "Angkot no. $no_angkot sedang rusak. <br>";
+for ($angkot_rusak = 7; $angkot_rusak <= $jumlah_angkot; $angkot_rusak++) {
+    echo "Angkot no. $angkot_rusak sedang rusak. <br>";
 }
