@@ -4,17 +4,29 @@
 // $angka = 5;
 // jika $angka dibagi 2, sisanya 1 maka GANJIL
 // kalau === dia bukan lagi perbandingan dia menjadi otoritas
-function cek_ganjil_genap($angka) //ini parameter guyss
+// function cek_ganjil_genap($angka) //ini parameter guyss
+// {
+//     if ($angka % 2 == 1) {
+//         return "$angka adalah bilangan GANJIL!";
+//     } else { // selain dari itu
+//         return "$angka adalah bilangan GENAP!";
+//     }
+// }
+
+// echo cek_ganjil_genap(10); // argument adalah nilai aslinya atau nilai yang ada didalam kurung ituu guyssssss
+// echo "<br>";
+// echo cek_ganjil_genap(5);
+// echo "<br>";
+// echo cek_ganjil_genap(500);
+
+function cetak_bintang($angka)
 {
-    if ($angka % 2 == 1) {
-        return "$angka adalah bilangan GANJIL!";
-    } else { // selain dari itu
-        return "$angka adalah bilangan GENAP!";
+    for ($i = 1; $i <= $angka; $i++) {
+        for ($j = 1; $j <= $i; $j++) {
+            echo "*";
+        }
+        echo "<br/>";
     }
 }
 
-echo cek_ganjil_genap(10); // argument adalah nilai aslinya atau nilai yang ada didalam kurung ituu guyssssss
-echo "<br>";
-echo cek_ganjil_genap(5);
-echo "<br>";
-echo cek_ganjil_genap(500);
+cetak_bintang(5);
