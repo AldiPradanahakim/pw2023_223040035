@@ -49,6 +49,20 @@ form {
   overflow: hidden;
   grid-column: 1 / 2;
   grid-row: 1 / 2;
+  transform: translateX(0px);
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-40px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
 }
 
 form.sign-up-form {
@@ -98,7 +112,7 @@ form.sign-in-form {
   color: #333;
   /* box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75); */
   /* -webkit-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75); */
-  -moz-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+  -moz-box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
 }
 
 .input-field input::placeholder {
@@ -177,7 +191,6 @@ form.sign-in-form {
   border-radius: 50%;
   z-index: 6;
 }
-
 
 .image {
   width: 100%;
