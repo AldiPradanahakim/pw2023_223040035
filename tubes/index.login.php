@@ -43,6 +43,7 @@ if (isset($_POST["cari"])) {
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-fm1DrjrMo+7Xr21Epl+Y5kDCq9hF5efWjIOgbZIz3BX66lg39loTSPBUVrFTC0mI/3HTzLJqmcC8NebihozBrA==" crossorigin="anonymous" />
   <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Rubik:ital,wght@0,400;1,500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/responsive.css">
@@ -579,29 +580,85 @@ if (isset($_POST["cari"])) {
       </div>
     </div>
 
-    <script>
-      // Mengaktifkan dropdown ketika diklik di luar dropdown content
-      window.onclick = function(event) {
-        if (!event.target.matches('.dropdown')) {
-          var dropdowns = document.getElementsByClassName("dropdown-content");
-          for (var i = 0; i < dropdowns.length; i++) {
-            var openDropdown = dropdowns[i];
-            if (openDropdown.style.display === 'block') {
-              openDropdown.style.display = 'none';
-            }
+    <!-- footer -->
+    <footer class="footer bg-primary text-white">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-3 col-md-6">
+            <h5>Tentang Detik</h5>
+            <p>Detik.com adalah situs berita terkini yang menyajikan berbagai informasi terupdate dari berbagai bidang.</p>
+          </div>
+          <div class="col-lg-3 col-md-6">
+            <h5>Kategori</h5>
+            <ul class="list-unstyled">
+              <li><a href="#">Politik</a></li>
+              <li><a href="#">Ekonomi</a></li>
+              <li><a href="#">Teknologi</a></li>
+              <li><a href="#">Hiburan</a></li>
+            </ul>
+          </div>
+          <div class="col-lg-3 col-md-6">
+            <h5>Detik Network</h5>
+            <ul class="list-unstyled">
+              <li><a href="#">DetikNews</a></li>
+              <li><a href="#">DetikFinance</a></li>
+              <li><a href="#">DetikInet</a></li>
+              <li><a href="#">DetikHealth</a></li>
+            </ul>
+          </div>
+          <div class="col-lg-3 col-md-6">
+            <h5>Kontak</h5>
+            <address>
+              Jalan Utama No. 123<br>
+              Kota, Negara<br>
+              Tel: 123-456-7890<br>
+              Email: info@detik.com
+            </address>
+          </div>
+        </div>
+        <hr>
+        <div class="row">
+          <div class="col-lg-12 text-center">
+            <ul class="list-inline">
+              <li class="list-inline-item"><a href="#"><i class="fab fa-facebook-f">f</i></a></li>
+              <li class="list-inline-item"><a href="#"><i class="fab fa-twitter"></i></a></li>
+              <li class="list-inline-item"><a href="#"><i class="fab fa-instagram"></i></a></li>
+              <li class="list-inline-item"><a href="#"><i class="fab fa-youtube"></i></a></li>
+            </ul>
+            <p>&copy; 2023 detikcom. All Rights Reserved.</p>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+
+
+
+  </div>
+
+  <script>
+    // Mengaktifkan dropdown ketika diklik di luar dropdown content
+    window.onclick = function(event) {
+      if (!event.target.matches('.dropdown')) {
+        var dropdowns = document.getElementsByClassName("dropdown-content");
+        for (var i = 0; i < dropdowns.length; i++) {
+          var openDropdown = dropdowns[i];
+          if (openDropdown.style.display === 'block') {
+            openDropdown.style.display = 'none';
           }
         }
       }
-    </script>
+    }
+  </script>
 
-    <!-- Option 1: Bootstrap Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-    <script></script>
-    <script src="node_modules/@glidejs/glide/dist/glide.min.js"></script>
-    <!-- Option 2: Separate Popper and Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
-    <script src="admin/asset/js/nav.js"></script>
+  <!-- Option 1: Bootstrap Bundle with Popper -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+  <script></script>
+  <script src="node_modules/@glidejs/glide/dist/glide.min.js"></script>
+  <!-- Option 2: Separate Popper and Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+  <script src="admin/asset/js/nav.js"></script>
 
 </body>
 
