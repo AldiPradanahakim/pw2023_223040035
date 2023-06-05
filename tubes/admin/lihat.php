@@ -9,6 +9,9 @@ $worlds = query("SELECT * FROM world");
 
 if (isset($_POST["cari"])) {
     $news = cari($_POST["keyword"]);
+    $populars = cari($_POST["keyword"]);
+    $recommendations = cari($_POST["keyword"]);
+    $worlds = cari($_POST["keyword"]);
 }
 
 
@@ -27,14 +30,25 @@ if (isset($_POST["cari"])) {
     <link rel="stylesheet" href="asset/css/color-1.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" />
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
 </head>
+
+<style>
+    @media print {
+        .no-print {
+            display: none !important;
+        }
+    }
+</style>
 
 <body>
 
     <div class="main-container" id="container">
         <div class="aside">
             <div class="logo">
-                <a href="index.php"><span>Titik</span></a>
+                <a href="../../index.php"><span>Titik</span></a>
             </div>
             <div class="nav-toggler">
                 <span></span>
@@ -60,7 +74,14 @@ if (isset($_POST["cari"])) {
                     </div>
                 </li>
                 <li>
-
+                    <div class="container no-print">
+                        <button onclick="window.print()">
+                            <i class="bi bi-journal plus">Print</i>
+                        </button>
+                    </div>
+                </li>
+                <li>
+                    <a href="../logout.php"><i class="uil uil-sign-out-alt"><span>Log Out</span></i></a>
                 </li>
 
                 <!-- <i class="uil uil-times" onclick="tutup()"></i> -->
@@ -71,13 +92,7 @@ if (isset($_POST["cari"])) {
 
         <div class="main-content">
             <div class="section">
-                <div class="bodi">
-                    <div class="box">
-                        <input type="text" name="keyword" class="search-txt" autofocus placeholder="Search.." autocomplete="off" id="keyword">
-                        <i class="uil uil-search" name="cari" id="tombol-cari"></i>
-                    </div>
-                </div>
-                <section id="1" class="about section">
+                <section id="1" class="about section no-print">
                     <div class="container">
                         <div class="section-title">
                             <h2>Lates News</h2>
@@ -89,8 +104,9 @@ if (isset($_POST["cari"])) {
                                 <th>title</th>
                                 <th>content</th>
                                 <th>link</th>
-                                <th>Gambar</th>
                                 <th>Waktu</th>
+                                <th>Tanggal</th>
+                                <th>Gambar</th>
 
                             </tr>
                             <?php $i = 1; ?>
@@ -98,10 +114,12 @@ if (isset($_POST["cari"])) {
                                 <tr class="isi">
                                     <td class="no"><?= $i; ?></td>
                                     <td class="title"><?= $row["title"]; ?></td>
-                                    <td class="no"><?= $row["content"]; ?></td>
+                                    <td class="no thh"><?= $row["content"]; ?></td>
                                     <td class="title"><?= $row["link"]; ?></td>
+                                    <td class="no"><?= $row["waktu"]; ?></td>
+                                    <td class="title"><?= $row["tanggal"]; ?></td>
                                     <td class="gambar no"><img src="img/<?= $row["gambar"]; ?>" alt="" width="120" height="60"></td>
-                                    <td><?= $row["waktu"]; ?></td>
+
 
                                 </tr>
                                 <?php $i++; ?>
@@ -110,7 +128,7 @@ if (isset($_POST["cari"])) {
                     </div>
 
                 </section>
-                <section id="2" class="about section">
+                <section id="2" class="about section ">
                     <div class="container">
                         <div class="section-title">
                             <h2>Berita Terpopuler</h2>
@@ -118,14 +136,24 @@ if (isset($_POST["cari"])) {
                         <table cellpadding="10" cellspacing="0" class="lihat">
                             <tr class="name">
                                 <th class="no">No.</th>
-                                <th>title</th>>
+                                <th>title</th>
+                                <th>content</th>
+                                <th>link</th>
+                                <th>Waktu</th>
+                                <th>Tanggal</th>
+                                <th>Gambar</th>
 
                             </tr>
                             <?php $i = 1; ?>
                             <?php foreach ($populars as $row) : ?>
                                 <tr class="isi">
                                     <td class="no"><?= $i; ?></td>
-                                    <td class="title title-popular"><?= $row["title"]; ?></td>
+                                    <td class="title"><?= $row["title"]; ?></td>
+                                    <td class="no thh"><?= $row["content"]; ?></td>
+                                    <td class="title"><?= $row["link"]; ?></td>
+                                    <td class="no"><?= $row["waktu"]; ?></td>
+                                    <td class="title"><?= $row["tanggal"]; ?></td>
+                                    <td class="gambar no"><img src="img/<?= $row["gambar"]; ?>" alt="" width="120" height="60"></td>
 
                                 </tr>
                                 <?php $i++; ?>
@@ -134,7 +162,7 @@ if (isset($_POST["cari"])) {
                     </div>
 
                 </section>
-                <section id="3" class="about section">
+                <section id="3" class="about section ">
                     <div class="container">
                         <div class="section-title">
                             <h2>World</h2>
@@ -145,6 +173,8 @@ if (isset($_POST["cari"])) {
                                 <th>title</th>
                                 <th>content</th>
                                 <th>link</th>
+                                <th>Waktu</th>
+                                <th>Tanggal</th>
                                 <th>Gambar</th>
 
                             </tr>
@@ -153,8 +183,10 @@ if (isset($_POST["cari"])) {
                                 <tr class="isi">
                                     <td class="no"><?= $i; ?></td>
                                     <td class="title"><?= $row["title"]; ?></td>
-                                    <td class="no"><?= $row["content"]; ?></td>
+                                    <td class="no thh"><?= $row["content"]; ?></td>
                                     <td class="title"><?= $row["link"]; ?></td>
+                                    <td class="no"><?= $row["waktu"]; ?></td>
+                                    <td class="title"><?= $row["tanggal"]; ?></td>
                                     <td class="gambar no"><img src="img/<?= $row["gambar"]; ?>" alt="" width="120" height="60"></td>
 
                                 </tr>
@@ -164,7 +196,7 @@ if (isset($_POST["cari"])) {
                     </div>
 
                 </section>
-                <section id="rekomendasi" class="about section">
+                <section id="rekomendasi" class="about section ">
                     <div class="container">
                         <div class="section-title">
                             <h2>Rekomendasi Untuk Anda</h2>
@@ -175,6 +207,8 @@ if (isset($_POST["cari"])) {
                                 <th>title</th>
                                 <th>content</th>
                                 <th>link</th>
+                                <th>Waktu</th>
+                                <th>Tanggal</th>
                                 <th>Gambar</th>
 
                             </tr>
@@ -183,8 +217,10 @@ if (isset($_POST["cari"])) {
                                 <tr class="isi">
                                     <td class="no"><?= $i; ?></td>
                                     <td class="title"><?= $row["title"]; ?></td>
-                                    <td class="no"><?= $row["content"]; ?></td>
+                                    <td class="no thh"><?= $row["content"]; ?></td>
                                     <td class="title"><?= $row["link"]; ?></td>
+                                    <td class="no"><?= $row["waktu"]; ?></td>
+                                    <td class="title"><?= $row["tanggal"]; ?></td>
                                     <td class="gambar no"><img src="img/<?= $row["gambar"]; ?>" alt="" width="120" height="60"></td>
 
                                 </tr>
@@ -198,6 +234,10 @@ if (isset($_POST["cari"])) {
         </div>
     </div>
 
+
+
+    <script src="https://kit.fontawesome.com/49181759c3.js" crossorigin="anonymou"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
     <script src="asset/js/nav.js"></script>
 </body>
 

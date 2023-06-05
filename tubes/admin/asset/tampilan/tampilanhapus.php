@@ -20,6 +20,9 @@
             <li>
                 <a href="../../lihat.php" class="active"><i class="uil uil-eye"><span>lihat</span></i></a>
             </li>
+            <li>
+                <a href="../logout.php"><i class="uil uil-sign-out-alt"><span>Log Out</span></i></a>
+            </li>
 
             <!-- <i class="uil uil-times" onclick="tutup()"></i> -->
         </ul>

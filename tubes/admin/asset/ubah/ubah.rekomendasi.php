@@ -27,7 +27,9 @@ $recommendations = query("SELECT * FROM rekomendasi_untuk_anda");
             <li>
                 <a href="../../lihat.php" class="active"><i class="uil uil-eye"><span>lihat</span></i></a>
             </li>
-
+            <li>
+                <a href="../logout.php"><i class="uil uil-sign-out-alt"><span>Log Out</span></i></a>
+            </li>
 
             <!-- <i class="uil uil-times" onclick="tutup()"></i> -->
         </ul>
@@ -37,12 +39,6 @@ $recommendations = query("SELECT * FROM rekomendasi_untuk_anda");
 
     <div class="main-content">
         <div class="section">
-            <div class="bodi">
-                <div class="box">
-                    <input type="text" name="keyword" class="search-txt" autofocus placeholder="Search.." autocomplete="off" id="keyword">
-                    <i class="uil uil-search" name="cari" id="tombol-cari"></i>
-                </div>
-            </div>
             <section id="about" class="about section">
                 <div class="container">
                     <div class="section-title">

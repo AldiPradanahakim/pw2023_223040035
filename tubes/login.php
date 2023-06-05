@@ -2,53 +2,68 @@
 session_start();
 require 'admin/functions.php';
 
-if (isset($_POST['login'])) {
-  $username = $_POST['username'];
-  $password = $_POST['password'];
+// Cek cookie
+if (isset($_COOKIE['id']) && isset($_COOKIE['key'])) {
+  $id = $_COOKIE['id'];
+  $key = $_COOKIE['key'];
 
-  global $conn;
-  $result = mysqli_query($conn, "SELECT * FROM users WHERE username = '$username'");
+  // Ambil username berdasarkan id
+  $result = mysqli_query($conn, "SELECT id, username, role FROM users WHERE id = $id");
+  $row = mysqli_fetch_assoc($result);
 
-  //cek email
-  if (mysqli_num_rows($result) === 1) {
-    // cek password
-    $row = mysqli_fetch_assoc($result);
-    if (password_verify($password, $row["password"])) {
-      // ser session
-      $_SESSION["login"] = true;
-
-      // cek remember me 
-      if (isset($_POST['remember'])) {
-        // buat cookie
-        setcookie('id', $row['id'], time() + 60);
-        setcookie('key', hash('sha256', $row['username']), time() + 60);
-      }
-
-      header("location: index.login.php");
-      exit;
-    }
-
-    $eror = true;
+  // Cek cookie dan username
+  if ($key === hash('sha256', $row['username'])) {
+    $_SESSION['submit'] = true;
+    $_SESSION['username'] = $row['username'];
+    $_SESSION['role'] = $row['role'];
+    $_SESSION['user_id'] = $row['id'];
   }
-  $error = true;
 }
 
+if (isset($_POST["login"])) {
+  $username = $_POST["username"];
+  $password = $_POST["password"];
 
+  $result = mysqli_query($conn, "SELECT * FROM users WHERE username = '$username'");
 
+  // Cek username
+  if (mysqli_num_rows($result) === 1) {
+    // Cek password
+    $row = mysqli_fetch_assoc($result);
+    if (password_verify($password, $row["password"])) {
+      // Set session
+      $_SESSION["submit"] = true;
+      $_SESSION["username"] = $username;
+      $_SESSION["role"] = $row['role'];
+      $_SESSION["user_id"] = $row['id'];
+
+      // Redirect ke halaman sesuai peran
+      if ($row['role'] === 'admin') {
+        header("Location: admin/index.php");
+        exit;
+      } else if ($row['role'] === 'user') {
+        header("Location: index.login.php");
+        exit;
+      } else {
+        echo "Anda tidak memiliki akses.";
+      }
+    } else {
+      $error = true;
+    }
+  } else {
+    $error = true;
+  }
+}
 if (isset($_POST["register"])) {
 
   if (registrasi($_POST) > 0) {
     echo "<script>
-  alert('Registration Successful.');
-</script>";
+          alert('Registration Successful.');
+          </script>";
   } else {
     echo mysqli_error($conn);
   }
-
-  $error = "Username atau password salah!";
 }
-
-
 
 
 
@@ -110,7 +125,7 @@ if (isset($_POST["register"])) {
           </div>
           <div class="input-field">
             <i class="fas fa-user"></i>
-            <input type="text" placeholder="Nama" name="Nama" />
+            <input type="text" placeholder="Nama" name="nama" />
           </div>
           <div class="input-field">
             <i class="fas fa-envelope"></i>

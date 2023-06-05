@@ -22,13 +22,6 @@ if (isset($_POST["submit"])) {
     }
 }
 
-$tanggalSekarang = date('Y-m-d');
-
-// Mengatur zona waktu ke WIB (Waktu Indonesia Barat)
-date_default_timezone_set('Asia/Jakarta');
-
-// Mendapatkan waktu saat ini
-$sekarang = date("H:i:s");
 
 
 
@@ -90,14 +83,7 @@ $sekarang = date("H:i:s");
                             <label for="gambar">Gambar</label>
                             <input type="file" name="gambar" id="gambar" />
                         </li>
-                        <li>
-                            <label for="waktu">Waktu</label>
-                            <?= $sekarang; ?>
-                        </li>
-                        <li>
-                            <label for="tanggal">Tanggal</label>
-                            <?= $tanggalSekarang; ?>
-                        </li>
+
                         <li>
                             <button type="submit" name="submit">Tambah Data!</button>
                         </li>

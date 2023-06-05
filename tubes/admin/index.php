@@ -47,7 +47,7 @@ if ($currentTime >= 5 && $currentTime < 10) {
                 <a href="lihat.php" class="active" onclick="toggleDropdown('dropdown1')"><i class="uil uil-eye"><span>lihat</span></i></a>
             </li>
             <li>
-                <a href="../logout.php">LogOut</a>
+                <a href="../logout.php"><i class="uil uil-sign-out-alt"><span>Log Out</span></i></a>
             </li>
 
 

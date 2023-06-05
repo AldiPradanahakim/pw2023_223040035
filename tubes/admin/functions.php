@@ -1,4 +1,7 @@
 <?php
+
+define('BASE_URL', '/pw2023_223040035/tubes/');
+
 // koneksi ke darabase
 $conn = mysqli_connect("localhost", "root", "", "titik_news");
 
@@ -50,14 +53,23 @@ function tambahpopular($data)
     // ambil data dari tiap elemen dalam form
     global $conn;
     $title = htmlspecialchars($data["title"]);
+    $content = htmlspecialchars($data["content"]);
+    $link = htmlspecialchars($data["link"]);
+    $gambar = htmlspecialchars($data["gambar"]);
     $waktu = htmlspecialchars($data["waktu"]);
     $tanggal = htmlspecialchars($data["tanggal"]);
+
+    // upload gambar
+    $gambar = upload();
+    if (!$gambar) {
+        return false;
+    }
 
 
     // query insert data
     $query = "INSERT INTO berita_terpopuler
                 VALUES 
-                (null, '$title',CURRENT_TIMESTAMP,  CURDATE())";
+                (null, '$title', '$content', '$link', '$gambar',CURRENT_TIMESTAMP,  CURDATE())";
 
     mysqli_query($conn, $query) or die(mysqli_error($conn));
 
@@ -244,15 +256,27 @@ function ubahpopular($data)
     global $conn;
     $popular_id = ($data["popular_id"]);
     $title = htmlspecialchars($data["title"]);
+    $content = htmlspecialchars($data["content"]);
+    $link = htmlspecialchars($data["link"]);
+    $gambarLama = htmlspecialchars($data["gambarLama"]);
 
 
     // cek apakah user pilih gambar baru atau tidak
+    if ($_FILES['gambar']['error'] === 4) {
+        $gambar = $gambarLama;
+    } else {
+        $gambar = upload();
+    }
+    // cek apakah user pilih gambar baru atau tidak
 
     // query insert data
-    $query = "UPDATE  berita_terpopuler SET
-        title = '$title'
-        WHERE popular_id = $popular_id
-        ";
+    $query = "UPDATE  latest_news SET
+            title = '$title',
+            content = '$content',
+            link = '$link',
+            gambar = '$gambar'
+            WHERE popular_id = $popular_id
+            ";
 
     mysqli_query($conn, $query);
 
@@ -327,16 +351,28 @@ function ubahworld($data)
 
 function cari($keyword)
 {
-    $query = "SELECT * FROM latest_news
-                WHERE
-                title LIKE '%$keyword%' OR
-                content LIKE '%$keyword%' OR
-                link LIKE '%$keyword%' 
-                ";
+    // Query untuk mencari data pada 4 tabel berdasarkan kata kunci
+    $query = "SELECT title FROM latest_news
+    WHERE
+    title LIKE '%$keyword%' OR
+    content LIKE '%$keyword%' 
+    UNION
+    SELECT title FROM berita_terpopuler
+    WHERE
+    title LIKE '%$keyword%'
+    UNION
+    SELECT title FROM world
+    WHERE
+    title LIKE '%$keyword%' OR
+    content LIKE '%$keyword%'
+    UNION
+    SELECT title FROM rekomendasi_untuk_anda
+    WHERE
+    title LIKE '%$keyword%' OR
+    content LIKE '%$keyword%' ";
 
     return query($query);
 }
-
 
 function registrasi($data)
 {
@@ -376,7 +412,7 @@ function registrasi($data)
     $password = password_hash($password, PASSWORD_DEFAULT);
 
     // tambahkan userbaru ke database
-    mysqli_query($conn, "INSERT INTO users VALUES(null, '$username','$nama', '$email', '$password', '$gambar')");
+    mysqli_query($conn, "INSERT INTO users VALUES(null, '$username','$nama', '$email', '$password', '$gambar', 'user')");
 
     return mysqli_affected_rows($conn);
 }

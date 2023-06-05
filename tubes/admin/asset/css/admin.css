@@ -483,14 +483,20 @@ button:hover {
 .about .container table .isi .no {
   text-align: center;
   background-color: #3ddad7;
-  padding-left: 5px;
-  padding-right: 5px;
+  padding: 5px;
+  border-bottom: 3px solid #135589;
 }
 
+.about .container table .isi .thh {
+  width: 600px;
+}
 .about .container table .isi .title {
   background-color: aquamarine;
   padding-left: 5px;
   padding-right: 5px;
+  border-bottom: 3px solid #135589;
+  padding-bottom: 5px;
+  padding-top: 5px;
 }
 
 .about .container table .isi .gambar {

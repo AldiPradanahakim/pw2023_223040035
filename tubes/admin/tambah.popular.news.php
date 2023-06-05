@@ -67,6 +67,18 @@ if (isset($_POST["submit"])) {
                             <input type="text" name="title" id="title" />
                         </li>
                         <li>
+                            <label for="content">Content</label>
+                            <input type="text" name="content" id="content" />
+                        </li>
+                        <li>
+                            <label for="link">Link</label>
+                            <input type="text" name="link" id="link" />
+                        </li>
+                        <li>
+                            <label for="gambar">Gambar</label>
+                            <input type="file" name="gambar" id="gambar" />
+                        </li>
+                        <li>
                             <button type="submit" name="submit">Tambah Data!</button>
                         </li>
                     </ul>

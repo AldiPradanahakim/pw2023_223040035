@@ -27,6 +27,9 @@ $populars = query("SELECT * FROM berita_terpopuler ");
             <li>
                 <a href="../../lihat.php" class="active"><i class="uil uil-eye"><span>lihat</span></i></a>
             </li>
+            <li>
+                <a href="../logout.php"><i class="uil uil-sign-out-alt"><span>Log Out</span></i></a>
+            </li>
 
 
             <!-- <i class="uil uil-times" onclick="tutup()"></i> -->
@@ -36,46 +39,46 @@ $populars = query("SELECT * FROM berita_terpopuler ");
     </div>
 
     <div class="main-content">
-        <div class="section">
-            <div class="bodi">
-                <div class="box">
-                    <input type="text" name="keyword" class="search-txt" autofocus placeholder="Search.." autocomplete="off" id="keyword">
-                    <i class="uil uil-search" name="cari" id="tombol-cari"></i>
+        <section id="about" class="about section">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Ubah Berita Terpopuler</h2>
                 </div>
-            </div>
-            <section id="about" class="about section">
-                <div class="container">
-                    <div class="section-title">
-                        <h2>Ubah Berita Terpopuler</h2>
-                    </div>
-                    <table cellpadding="10" cellspacing="0">
-                        <tr class="name">
-                            <th class="no">No.</th>
-                            <th>title</th>
-                            <th>Waktu</th>
-                            <th>Tanggal</th>
-                            <th class="no">Aksi</th>
+                <<table cellpadding="10" cellspacing="0">
+                    <tr class="name">
+                        <th class="no">No.</th>
+                        <th>title</th>
+                        <th>content</th>
+                        <th>link</th>
+                        <th>Gambar</th>
+                        <th>Waktu</th>
+                        <th>Tanggal</th>
+                        <th class="no">Aksi</th>
+
+                    </tr>
+                    <?php $i = 1; ?>
+                    <?php foreach ($populars as $row) : ?>
+                        <tr class="isi">
+                            <td class="no"><?= $i; ?></td>
+                            <td class="padding"><?= $row["title"]; ?></td>
+                            <td class="padding"><?= $row["content"]; ?></td>
+                            <td class="padding"><?= $row["link"]; ?></td>
+                            <td class="gambar padding"><img src="../../img/<?= $row["gambar"]; ?>" alt="" width="120" height="60"></td>
+                            <td class="padding waktu"><?= $row["waktu"]; ?></td>
+                            <td class="padding waktu"><?= $row["tanggal"]; ?></td>
+                            <td class="uil">
+                                <a href="../../ubah.popular.php?news_id=<?= $row["popular_id"]; ?>"><i class="uil uil-edit"></i></a>
+                            </td>
 
                         </tr>
-                        <?php $i = 1; ?>
-                        <?php foreach ($populars as $row) : ?>
-                            <tr class="isi">
-                                <td class="no"><?= $i; ?></td>
-                                <td><?= $row["title"]; ?></td>
-                                <td class="padding waktu"><?= $row["waktu"]; ?></td>
-                                <td class="padding waktu"><?= $row["tanggal"]; ?></td>
-                                <td class="uil">
-                                    <a href="../../ubah.popular.php?popular_id=<?= $row["popular_id"]; ?>"><i class="uil uil-edit"></i></a>
-                                </td>
-                            </tr>
-                            <?php $i++; ?>
-                        <?php endforeach; ?>
+                        <?php $i++; ?>
+                    <?php endforeach; ?>
                     </table>
-                </div>
+            </div>
 
-            </section>
-        </div>
+        </section>
     </div>
+</div>
 </div>
 
 <?php require('../../partials/footer.php'); ?>
