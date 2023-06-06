@@ -1,5 +1,12 @@
 <?php
+session_start();
 require('../../functions.php');
+
+// Jika pengguna belum login, alihkan ke halaman login
+if (!isset($_SESSION['login'])) {
+    header("Location: ../../../login.php");
+    exit();
+}
 $news = query("SELECT * FROM latest_news");
 
 if (isset($_POST["cari"])) {

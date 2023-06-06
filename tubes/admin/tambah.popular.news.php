@@ -1,6 +1,12 @@
 <?php
+session_start();
 require 'functions.php';
 
+// Jika pengguna belum login, alihkan ke halaman login
+if (!isset($_SESSION['login'])) {
+    header("Location: ../login.php");
+    exit();
+}
 
 // cek apakah tombol submit sudah ditekan atau belum
 if (isset($_POST["submit"])) {

@@ -1,6 +1,12 @@
 <?php
+session_start();
 require 'functions.php';
 
+// Jika pengguna belum login, alihkan ke halaman login
+if (!isset($_SESSION['login'])) {
+    header("Location: ../login.php");
+    exit();
+}
 // ambil data di URL
 $recommendation_id = $_GET["recommendation_id"];
 

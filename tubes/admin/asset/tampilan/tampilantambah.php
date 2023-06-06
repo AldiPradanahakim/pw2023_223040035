@@ -1,3 +1,13 @@
+<?php
+session_start();
+require('../../functions.php');
+
+// Jika pengguna belum login, alihkan ke halaman login
+if (!isset($_SESSION['login'])) {
+    header("Location: ../../../login.php");
+    exit();
+}
+?>
 <?php require('../../partials/header.php'); ?>
 <div class="main-container">
     <div class="aside">

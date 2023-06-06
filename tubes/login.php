@@ -101,21 +101,7 @@ if (isset($_POST["register"])) {
             <input type="password" placeholder="Password" name="password" />
           </div>
           <input type="submit" name="login" value="Login" class="btn solid" />
-          <p class="social-text">Or Sign in with social platforms</p>
-          <div class="social-media">
-            <a href="https://www.instagram.com/aldprdnhkm8/?hl=id" class="social-icon">
-              <i class="fab fa-instagram"></i>
-            </a>
-            <a href="#" class="social-icon">
-              <i class="fab fa-twitter"></i>
-            </a>
-            <a href="#" class="social-icon">
-              <i class="fab fa-google"></i>
-            </a>
-            <a href="#" class="social-icon">
-              <i class="fab fa-line"></i>
-            </a>
-          </div>
+
         </form>
         <form action="#" class="sign-up-form" method="post">
           <h2 class="title">Sign up</h2>
@@ -168,8 +154,7 @@ if (isset($_POST["register"])) {
         <div class="content">
           <h3 class="h3">New here ?</h3>
           <p class="p">
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Debitis,
-            ex ratione. Aliquid!
+            Selamat datang! Untuk mengakses fitur-fitur eksklusif kami, kami mohon agar Anda melakukan registrasi terlebih dahulu. Dengan mendaftar, Anda akan mendapatkan manfaat seperti akses ke konten premium, notifikasi terkini, dan kesempatan untuk berinteraksi dengan komunitas kami.
           </p>
           <button class="btn transparent" id="sign-up-btn">Sign up</button>
         </div>
@@ -179,8 +164,7 @@ if (isset($_POST["register"])) {
         <div class="content">
           <h3 class="h3">One of us ?</h3>
           <p class="p">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum
-            laboriosam ad deleniti.
+            Selamat! Anda telah berhasil melakukan registrasi di situs berita kami. Sekarang, sebagai anggota, Anda akan mendapatkan akses penuh ke berbagai fitur dan konten yang kami sediakan. Dapatkan berita terkini, ulasan mendalam, artikel eksklusif, dan banyak lagi.
           </p>
           <button class="btn transparent" id="sign-in-btn">Sign in</button>
         </div>

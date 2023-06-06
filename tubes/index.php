@@ -27,29 +27,6 @@ if (isset($_POST["cari"])) {
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script>
-    $(document).ready(function() {
-      // Fungsi untuk melakukan pencarian secara live
-      function liveSearch(keyword) {
-        $.ajax({
-          url: 'admin/functions.php',
-          type: 'GET',
-          data: {
-            keyword: keyword
-          },
-          success: function(response) {
-            $('#search-results').html(response);
-          }
-        });
-      }
-
-      // Event listener untuk memanggil fungsi liveSearch saat input pencarian berubah
-      $('#search-input').on('input', function() {
-        var keyword = $(this).val();
-        liveSearch(keyword);
-      });
-    });
-  </script>
 
   <script>
     $(document).ready(function() {
@@ -168,7 +145,7 @@ if (isset($_POST["cari"])) {
             <div class="card mb-3 border-0" style="max-width: 1000px;">
               <div class="row g-0">
                 <div class="col-md-4">
-                  <img src="img/<?= $row["gambar"]; ?>" class="card-img pt-4" alt="...">
+                  <img src="admin/img/<?= $row["gambar"]; ?>" class="card-img pt-4" alt="...">
                 </div>
                 <div class=" col-md-8">
                   <div class="card-body">
@@ -205,7 +182,7 @@ if (isset($_POST["cari"])) {
           <?php foreach ($populars as $row) : ?>
             <div class="col">
               <div class="card h-100 border-0">
-                <img src="img/<?= $row[" gambar"]; ?>" class="card-img" alt="...">
+                <img src="admin/img/<?= $row["gambar"]; ?>" class="card-img" alt="...">
                 <div class="card-body">
                   <h5 class="card-title"><?= $row["title"]; ?></h5>
                   <p class="card-text"><?= $row["content"]; ?></p>
@@ -235,7 +212,7 @@ if (isset($_POST["cari"])) {
             <?php foreach ($worlds as $row) : ?>
               <div class="col">
                 <div class="card border-0">
-                  <img src="img/<?= $row["gambar"]; ?>" class="card-img" alt="...">
+                  <img src="admin/img/<?= $row["gambar"]; ?>" class="card-img" alt="...">
                   <div class="card-body">
                     <h5 class="card-title"><?= $row["title"]; ?></h5>
                     <p class="card-text"><?= $row["content"]; ?></p>
@@ -263,7 +240,7 @@ if (isset($_POST["cari"])) {
         <?php foreach ($recommendations as $row) : ?>
           <div class="col-sm-12 pt-2">
             <div class="card border-0">
-              <img src="img/<?= $row["gambar"]; ?>" class="card-img" alt="...">
+              <img src="admin/img/<?= $row["gambar"]; ?>" class="card-img" alt="...">
               <div class="card-body">
                 <h5 class="card-title"><?= $row["title"]; ?></h5>
                 <p class="card-text"><?= $row["content"]; ?></p>
@@ -275,19 +252,7 @@ if (isset($_POST["cari"])) {
         <?php endforeach; ?>
       </div>
     </div>
-
-
-    <!-- Option 1: Bootstrap Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-    <script></script>
-    <script src="node_modules/@glidejs/glide/dist/glide.min.js"></script>
-    <!-- Option 2: Separate Popper and Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
-
-
   </div>
-
   <!-- footer -->
   <footer class="padd-5">
     <div style="height: 3px; background-color: blue;"></div>
@@ -300,7 +265,7 @@ if (isset($_POST["cari"])) {
         <div class="col-md-4">
           <h3>Kategori</h3>
           <div class="row">
-            <div class="col-12 col-md-3">
+            <div class="col-12 col-md-3 me-4">
               <ul class="kategori list-unstyled">
                 <li class="mb-2"><a href="#latest_news">Latest News</a></li>
                 <li class="mb-2"><a href="#popular">Berita Populer</a></li>
@@ -324,7 +289,7 @@ if (isset($_POST["cari"])) {
           <ul class="social-media">
             <li><a href="#"><i class="uil uil-instagram"> aldprdnhkm8</i></a></li>
             <li><a href="#"><i class="uil uil-github-alt"> AldiPradanahakim</i></a></li>
-            <li><a href="#"><i class="uil uil-twitter-alt"></i></a></li>
+            <li><a href="#"><i class="uil uil-twitter-alt"> AldiPradanaHak12</i></a></li>
           </ul>
         </div>
       </div>
@@ -342,19 +307,19 @@ if (isset($_POST["cari"])) {
 
   </footer>
 
-  <script>
-        function cari(keyword) {
-            $.ajax({
-                url: 'admin/functions.php',
-                type: 'GET',
-                data: { keyword: keyword },
-                success: function(response) {
-                    $('#search-results').html(response);
-                }
-            });
-        }
-    </script>
-    <script src=" js/script.js">
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src=" https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
+              </script>
+              <script></script>
+              <script src="node_modules/@glidejs/glide/dist/glide.min.js"></script>
+              <!-- Option 2: Separate Popper and Bootstrap JS -->
+              <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+              <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+
+
+
+              <script src=" js/script.js">
               </script>
 </body>
 

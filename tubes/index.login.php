@@ -1,5 +1,5 @@
 <?php
-// session_start();
+session_start();
 require 'admin/functions.php';
 
 $news = query("SELECT * FROM latest_news");
@@ -8,11 +8,10 @@ $recommendations = query("SELECT * FROM rekomendasi_untuk_anda");
 $worlds = query("SELECT * FROM world");
 
 
-// // Memeriksa apakah pengguna telah login dan memiliki role user
-// if (!isset($_SESSION['login'])) {
-//   header("Location: login.php");
-//   exit();
-// }
+if (!isset($_SESSION['login'])) {
+  header("Location: login.php");
+  exit();
+}
 
 $users = query("SELECT * FROM users LIMIT 1");
 
@@ -21,6 +20,39 @@ if (isset($_POST["cari"])) {
   $news = cari($_POST["keyword"]);
 }
 
+
+// Fungsi untuk menambahkan like
+function addLike($post_id, $user_id, $connection)
+{
+  // Periksa apakah pengguna sudah melakukan like sebelumnya
+  $query = "SELECT COUNT(*) FROM likes WHERE post_id = :post_id AND user_id = :user_id";
+  $statement = $connection->prepare($query);
+  $statement->bindParam(':post_id', $post_id);
+  $statement->bindParam(':user_id', $user_id);
+  $statement->execute();
+  $count = $statement->fetchColumn();
+
+  if ($count == 0) {
+    // Tambahkan like baru
+    $query = "INSERT INTO likes (post_id, user_id) VALUES (:post_id, :user_id)";
+    $statement = $connection->prepare($query);
+    $statement->bindParam(':post_id', $post_id);
+    $statement->bindParam(':user_id', $user_id);
+    $statement->execute();
+
+    // Update jumlah likes di tabel posts
+    $query = "UPDATE posts SET likes = likes + 1 WHERE id = :post_id";
+    $statement = $connection->prepare($query);
+    $statement->bindParam(':post_id', $post_id);
+    $statement->execute();
+  }
+}
+
+// Mengambil data posting dari database
+$query = "SELECT * FROM posts";
+$statement = $connection->prepare($query);
+$statement->execute();
+$posts = $statement->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 
@@ -120,7 +152,7 @@ if (isset($_POST["cari"])) {
         <?php foreach ($users as $row) : ?>
           <li>
             <div class="dropdown">
-              <span><img src="img/<?= $row["gambar"]; ?>" alt=""></span>
+              <span><img src="admin/img/<?= $row["gambar"]; ?>" alt=""></span>
               <div class="dropdown-content">
                 <ul>
                   <li class="name">
@@ -190,7 +222,7 @@ if (isset($_POST["cari"])) {
             <div class="card mb-3 border-0" style="max-width: 1000px;">
               <div class="row g-0">
                 <div class="col-md-4">
-                  <img src="img/<?= $row["gambar"]; ?>" class="card-img pt-4" alt="...">
+                  <img src="admin/img/<?= $row["gambar"]; ?>" class="card-img pt-4" alt="...">
                 </div>
                 <div class=" col-md-8">
                   <div class="card-body">
@@ -257,7 +289,7 @@ if (isset($_POST["cari"])) {
             <?php foreach ($worlds as $row) : ?>
               <div class="col">
                 <div class="card border-0">
-                  <img src="img/<?= $row["gambar"]; ?>" class="card-img" alt="...">
+                  <img src="admin/img/<?= $row["gambar"]; ?>" class="card-img" alt="...">
                   <div class="card-body">
                     <h5 class="card-title"><?= $row["title"]; ?></h5>
                     <p class="card-text"><?= $row["content"]; ?></p>
@@ -285,7 +317,7 @@ if (isset($_POST["cari"])) {
         <?php foreach ($recommendations as $row) : ?>
           <div class="col-sm-12 pt-2">
             <div class="card border-0">
-              <img src="img/<?= $row["gambar"]; ?>" class="card-img" alt="...">
+              <img src="admin/img/<?= $row["gambar"]; ?>" class="card-img" alt="...">
               <div class="card-body">
                 <h5 class="card-title"><?= $row["title"]; ?></h5>
                 <p class="card-text"><?= $row["content"]; ?></p>

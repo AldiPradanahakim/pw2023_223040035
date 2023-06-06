@@ -1,6 +1,12 @@
 <?php
+session_start();
 require 'functions.php';
 
+// Jika pengguna belum login, alihkan ke halaman login
+if (!isset($_SESSION['login'])) {
+    header("Location: ../login.php");
+    exit();
+}
 $world_id = $_GET["world_id"];
 
 if (hapusworld($world_id) > 0) {

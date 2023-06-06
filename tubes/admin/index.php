@@ -1,11 +1,12 @@
 <?php
-// session_start();
+session_start();
+require 'functions.php';
 
-// // Memeriksa apakah pengguna telah login dan memiliki role admin
-// if (!isset($_SESSION['login']) || $_SESSION['role'] !== 'admin') {
-//     header("Location: ../login.php");
-//     exit();
-// }
+// Jika pengguna belum login, alihkan ke halaman login
+if (!isset($_SESSION['login'])) {
+    header("Location: ../login.php");
+    exit();
+}
 date_default_timezone_set('Asia/Jakarta');
 
 $currentTime = date('H');

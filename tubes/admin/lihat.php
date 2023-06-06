@@ -1,18 +1,18 @@
 <?php
+session_start();
 require 'functions.php';
+
+// Jika pengguna belum login, alihkan ke halaman login
+if (!isset($_SESSION['login'])) {
+    header("Location: ../login.php");
+    exit();
+}
 $news = query("SELECT * FROM latest_news");
 $populars = query("SELECT * FROM berita_terpopuler");
 $recommendations = query("SELECT * FROM rekomendasi_untuk_anda");
 $worlds = query("SELECT * FROM world");
 
 
-
-if (isset($_POST["cari"])) {
-    $news = cari($_POST["keyword"]);
-    $populars = cari($_POST["keyword"]);
-    $recommendations = cari($_POST["keyword"]);
-    $worlds = cari($_POST["keyword"]);
-}
 
 
 
