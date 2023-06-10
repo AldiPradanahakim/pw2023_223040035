@@ -2,18 +2,28 @@
 session_start();
 require 'admin/functions.php';
 
+if (empty($_SESSION["login"])) {
+  header("Location: login.php");
+  exit();
+}
+
 $news = query("SELECT * FROM latest_news");
 $populars = query("SELECT * FROM berita_terpopuler");
 $recommendations = query("SELECT * FROM rekomendasi_untuk_anda");
 $worlds = query("SELECT * FROM world");
 
+// Mendapatkan user_id dari session
+$user_id = $_SESSION["user_id"];
 
-if (!isset($_SESSION['login'])) {
-  header("Location: login.php");
-  exit();
-}
 
-$users = query("SELECT * FROM users LIMIT 1");
+//ambil data user berdasarkan user_id
+$query = "SELECT * FROM users WHERE user_id = $user_id";
+$result = mysqli_query($conn, $query);
+$user = mysqli_fetch_assoc($result);
+
+
+
+
 
 // tombol cari ditekan
 if (isset($_POST["cari"])) {
@@ -21,38 +31,6 @@ if (isset($_POST["cari"])) {
 }
 
 
-// Fungsi untuk menambahkan like
-function addLike($post_id, $user_id, $connection)
-{
-  // Periksa apakah pengguna sudah melakukan like sebelumnya
-  $query = "SELECT COUNT(*) FROM likes WHERE post_id = :post_id AND user_id = :user_id";
-  $statement = $connection->prepare($query);
-  $statement->bindParam(':post_id', $post_id);
-  $statement->bindParam(':user_id', $user_id);
-  $statement->execute();
-  $count = $statement->fetchColumn();
-
-  if ($count == 0) {
-    // Tambahkan like baru
-    $query = "INSERT INTO likes (post_id, user_id) VALUES (:post_id, :user_id)";
-    $statement = $connection->prepare($query);
-    $statement->bindParam(':post_id', $post_id);
-    $statement->bindParam(':user_id', $user_id);
-    $statement->execute();
-
-    // Update jumlah likes di tabel posts
-    $query = "UPDATE posts SET likes = likes + 1 WHERE id = :post_id";
-    $statement = $connection->prepare($query);
-    $statement->bindParam(':post_id', $post_id);
-    $statement->execute();
-  }
-}
-
-// Mengambil data posting dari database
-$query = "SELECT * FROM posts";
-$statement = $connection->prepare($query);
-$statement->execute();
-$posts = $statement->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 
@@ -85,7 +63,7 @@ $posts = $statement->fetchAll(PDO::FETCH_ASSOC);
   <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Rubik:ital,wght@0,400;1,500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/responsive.css">
-  <title>Titik.news</title>
+  <title>ALL NEWS</title>
 </head>
 <style>
   .search {
@@ -141,39 +119,37 @@ $posts = $statement->fetchAll(PDO::FETCH_ASSOC);
   <div id="container">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <div class="container-fluid">
-        <a class="navbar-brand" href="#">Navbar</a>
+        <a class="navbar-brand" href="#">ALL News</a>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <form action="admin/partials/search.php" class="d-flex search">
+          <form action="admin/partials/search.login.php" class="d-flex search">
             <input class="form-control me-auto " type="search" placeholder="Search" aria-label="Search">
             <button class="btn btn-outline-success" type="submit" name="cari" id="tombol-cari">Search</button>
           </form>
         </div>
-        <?php foreach ($users as $row) : ?>
-          <li>
-            <div class="dropdown">
-              <span><img src="admin/img/<?= $row["gambar"]; ?>" alt=""></span>
-              <div class="dropdown-content">
-                <ul>
-                  <li class="name">
-                    <img src="img/<?= $row["gambar"]; ?>" alt="">
-                    <p>username : <?= $row["username"]; ?></p>
-                  </li>
-                  <li>
-                    <p>nama : <?= $row["nama"]; ?></p>
-                    <p>email : <?= $row["email"]; ?></p>
-                  </li>
-                  <li>
-                    <hr>
-                  </li>
-                  <li>
-                    <a href="logout.php">Logout</a>
-                  </li>
-                </ul>
-              </div>
+        <li>
+          <div class="dropdown">
+            <span><img src="img/profile.jpg" alt=""></span>
+            <div class="dropdown-content">
+              <ul>
+                <li class="name">
+                  <img src="img/profile.jpg" alt="">
+                  <p>username : <?= $user["username"]; ?></p>
+                </li>
+                <li>
+                  <p>nama : <?= $user['nama']; ?></p>
+                  <p>email : <?= $user['email']; ?></p>
+                </li>
+                <li>
+                  <hr>
+                </li>
+                <li>
+                  <a href="logout.php">Logout</a>
+                </li>
+              </ul>
             </div>
-          </li>
-        <?php endforeach; ?>
+          </div>
+        </li>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -230,10 +206,7 @@ $posts = $statement->fetchAll(PDO::FETCH_ASSOC);
                     <p class="card-text"><?= $row["content"]; ?></p>
                     <div class="pt-4">
                       <a href="<?= $row["link"]; ?>" class="btn btn-primary">Read More</a>
-                      <div style="float: right; text-align: right; font-size:30px;">
-                        <i type="submit" name="save_btn" class="uil uil-bookmark-full"></i>
-                        <i type="submit" name="like_btn" class="uil uil-heart-alt"></i>
-                      </div>
+
                     </div>
                   </div>
                 </div>
@@ -329,20 +302,8 @@ $posts = $statement->fetchAll(PDO::FETCH_ASSOC);
         <?php endforeach; ?>
       </div>
     </div>
-
-
-    <!-- Option 1: Bootstrap Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-    <script></script>
-    <script src="node_modules/@glidejs/glide/dist/glide.min.js"></script>
-    <!-- Option 2: Separate Popper and Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
-
-
   </div>
 
-  <!-- footer -->
   <footer class="padd-5">
     <div style="height: 3px; background-color: blue;"></div>
     <div class="container">
@@ -354,7 +315,7 @@ $posts = $statement->fetchAll(PDO::FETCH_ASSOC);
         <div class="col-md-4">
           <h3>Kategori</h3>
           <div class="row">
-            <div class="col-12 col-md-3">
+            <div class="col-12 col-md-3 me-4">
               <ul class="kategori list-unstyled">
                 <li class="mb-2"><a href="#latest_news">Latest News</a></li>
                 <li class="mb-2"><a href="#popular">Berita Populer</a></li>
@@ -378,7 +339,7 @@ $posts = $statement->fetchAll(PDO::FETCH_ASSOC);
           <ul class="social-media">
             <li><a href="#"><i class="uil uil-instagram"> aldprdnhkm8</i></a></li>
             <li><a href="#"><i class="uil uil-github-alt"> AldiPradanahakim</i></a></li>
-            <li><a href="#"><i class="uil uil-twitter-alt"></i></a></li>
+            <li><a href="#"><i class="uil uil-twitter-alt"> AldiPradanaHak12</i></a></li>
           </ul>
         </div>
       </div>
@@ -396,11 +357,31 @@ $posts = $statement->fetchAll(PDO::FETCH_ASSOC);
 
   </footer>
 
-  <script>
-    // Mengaktifkan dropdown ketika diklik di luar dropdown content
-    window.onclick = function(event) {
-      if (!event.target.matches('.dropdown')) {
-        var dropdowns = document.getElementsByClassName(" dropdown-content"); for (var i=0; i < dropdowns.length; i++) { var openDropdown=dropdowns[i]; if (openDropdown.style.display==='block' ) { openDropdown.style.display='none' ; } } } } </script>
+
+  <!-- Option 1: Bootstrap Bundle with Popper -->
+  <script src=" https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
+              </script>
+              <script></script>
+              <script src="node_modules/@glidejs/glide/dist/glide.min.js"></script>
+              <!-- Option 2: Separate Popper and Bootstrap JS -->
+              <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+              <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+
+
+              <script>
+                // Mengaktifkan dropdown ketika diklik di luar dropdown content
+                window.onclick = function(event) {
+                  if (!event.target.matches('.dropdown')) {
+                    var dropdowns = document.getElementsByClassName(" dropdown-content");
+                    for (var i = 0; i < dropdowns.length; i++) {
+                      var openDropdown = dropdowns[i];
+                      if (openDropdown.style.display === 'block') {
+                        openDropdown.style.display = 'none';
+                      }
+                    }
+                  }
+                }
+              </script>
 
               <!-- Option 1: Bootstrap Bundle with Popper -->
               <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>

@@ -25,7 +25,7 @@ $worlds = query("SELECT * FROM world");
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Halaman admin</title>
+    <title>Halaman admin ALL News</title>
     <link rel="stylesheet" href="asset/css/admin.css" />
     <link rel="stylesheet" href="asset/css/color-1.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" />
@@ -46,9 +46,9 @@ $worlds = query("SELECT * FROM world");
 <body>
 
     <div class="main-container" id="container">
-        <div class="aside">
+        <div class="aside no-print">
             <div class="logo">
-                <a href="../../index.php"><span>Titik</span></a>
+                <a href="index.php"><span>Titik</span></a>
             </div>
             <div class="nav-toggler">
                 <span></span>
@@ -64,13 +64,14 @@ $worlds = query("SELECT * FROM world");
                     <a href="asset/tampilan/tampilanubah.php" class="active"><i class="uil uil-edit"><span>Edit</span></i></a>
                 </li>
                 <li>
-                    <a href="#" onclick="toggleDropdown('dropdown1')">Menu 1</a>
+                    <a href="#" onclick="toggleDropdown('dropdown1')"><i class="uil uil-list-ul"><span>List</span></i></a>
                 </li>
                 <li>
                     <div class="dropdown-content" id="dropdown1">
-                        <a href="#1">Submenu 1</a>
-                        <a href="#2">Submenu 1</a>
-                        <a href="#3">Submenu 3</a>
+                        <a href="#1">latest news</a>
+                        <a href="#2">popular</a>
+                        <a href="#3">world</a>
+                        <a href="#4">rekomendasi</a>
                     </div>
                 </li>
                 <li>
@@ -92,7 +93,7 @@ $worlds = query("SELECT * FROM world");
 
         <div class="main-content">
             <div class="section">
-                <section id="1" class="about section no-print">
+                <section id="1" class="about section">
                     <div class="container">
                         <div class="section-title">
                             <h2>Lates News</h2>
@@ -114,7 +115,7 @@ $worlds = query("SELECT * FROM world");
                                 <tr class="isi">
                                     <td class="no"><?= $i; ?></td>
                                     <td class="title"><?= $row["title"]; ?></td>
-                                    <td class="no thh"><?= $row["content"]; ?></td>
+                                    <td class="no width"><?= $row["content"]; ?></td>
                                     <td class="title"><?= $row["link"]; ?></td>
                                     <td class="no"><?= $row["waktu"]; ?></td>
                                     <td class="title"><?= $row["tanggal"]; ?></td>
@@ -149,7 +150,7 @@ $worlds = query("SELECT * FROM world");
                                 <tr class="isi">
                                     <td class="no"><?= $i; ?></td>
                                     <td class="title"><?= $row["title"]; ?></td>
-                                    <td class="no thh"><?= $row["content"]; ?></td>
+                                    <td class="no width"><?= $row["content"]; ?></td>
                                     <td class="title"><?= $row["link"]; ?></td>
                                     <td class="no"><?= $row["waktu"]; ?></td>
                                     <td class="title"><?= $row["tanggal"]; ?></td>
@@ -183,7 +184,7 @@ $worlds = query("SELECT * FROM world");
                                 <tr class="isi">
                                     <td class="no"><?= $i; ?></td>
                                     <td class="title"><?= $row["title"]; ?></td>
-                                    <td class="no thh"><?= $row["content"]; ?></td>
+                                    <td class="no width"><?= $row["content"]; ?></td>
                                     <td class="title"><?= $row["link"]; ?></td>
                                     <td class="no"><?= $row["waktu"]; ?></td>
                                     <td class="title"><?= $row["tanggal"]; ?></td>
@@ -196,7 +197,7 @@ $worlds = query("SELECT * FROM world");
                     </div>
 
                 </section>
-                <section id="rekomendasi" class="about section ">
+                <section id="4" class="about section ">
                     <div class="container">
                         <div class="section-title">
                             <h2>Rekomendasi Untuk Anda</h2>
@@ -217,7 +218,7 @@ $worlds = query("SELECT * FROM world");
                                 <tr class="isi">
                                     <td class="no"><?= $i; ?></td>
                                     <td class="title"><?= $row["title"]; ?></td>
-                                    <td class="no thh"><?= $row["content"]; ?></td>
+                                    <td class="no width"><?= $row["content"]; ?></td>
                                     <td class="title"><?= $row["link"]; ?></td>
                                     <td class="no"><?= $row["waktu"]; ?></td>
                                     <td class="title"><?= $row["tanggal"]; ?></td>

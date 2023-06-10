@@ -1,6 +1,7 @@
 <?php
 require '../functions.php';
 
+
 // Mendapatkan nilai keyword dari input pencarian
 $keyword = isset($_GET['keyword']) ? $_GET['keyword'] : '';
 
@@ -27,8 +28,9 @@ if (isset($_GET['cari']) && !empty($keyword)) {
     ");
 }
 
-?>
+$users = query("SELECT * FROM users LIMIT 1");
 
+?>
 <!doctype html>
 <html lang="en">
 
@@ -41,9 +43,6 @@ if (isset($_GET['cari']) && !empty($keyword)) {
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-
 
     <script>
         $(document).ready(function() {
@@ -57,11 +56,11 @@ if (isset($_GET['cari']) && !empty($keyword)) {
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-fm1DrjrMo+7Xr21Epl+Y5kDCq9hF5efWjIOgbZIz3BX66lg39loTSPBUVrFTC0mI/3HTzLJqmcC8NebihozBrA==" crossorigin="anonymous" />
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Rubik:ital,wght@0,400;1,500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="../../css/style.css">
     <link rel="stylesheet" href="../../css/responsive.css">
-    <title>ALL News</title>
+    <title>ALL NEWS</title>
 </head>
 <style>
     .search {
@@ -73,29 +72,41 @@ if (isset($_GET['cari']) && !empty($keyword)) {
 
     }
 
-    .sign {
-        border: 1px solid;
-        border-radius: 5px;
-        width: 100px;
-        height: 40px;
-        background-color: blue;
-        align-items: center;
-        text-align: center;
-        font-size: 20px;
+    .dropdown {
+        position: relative;
+        display: inline-block;
+    }
+
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #f9f9f9;
+        min-width: 200px;
+        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+        z-index: 1;
+        right: 0;
+    }
+
+    .dropdown img {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+    }
+
+    .dropdown-content .name {
+        display: flex;
+    }
+
+    .dropdown-content img {
+        width: 90px;
+        height: 80px;
+        border-radius: 50%;
         margin-right: 10px;
+        overflow: hidden;
     }
 
-    .sign a:hover {
-        color: white;
-    }
-
-    .like-icon {
-        color: gray;
-        cursor: pointer;
-    }
-
-    .like-icon.active {
-        color: red;
+    .dropdown:hover .dropdown-content {
+        display: block;
     }
 
     footer .kategori {
@@ -109,27 +120,49 @@ if (isset($_GET['cari']) && !empty($keyword)) {
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">ALL News</a>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <form class="d-flex search">
+                    <input class="form-control me-auto " type="search" placeholder="Search" name="keyword" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit" name="cari" id="tombol-cari">Search</button>
+                </form>
+            </div>
+            <?php foreach ($users as $row) : ?>
+                <li>
+                    <div class="dropdown">
+                        <span><img src="../../img/profile.jpg" alt=""></span>
+                        <div class="dropdown-content">
+                            <ul>
+                                <li class="name">
+                                    <img src="../../img/profile.jpg" alt="">
+                                    <p>username : <?= $row["username"]; ?></p>
+                                </li>
+                                <li>
+                                    <p>nama : <?= $row["nama"]; ?></p>
+                                    <p>email : <?= $row["email"]; ?></p>
+                                </li>
+                                <li>
+                                    <hr>
+                                </li>
+                                <li>
+                                    <a href="logout.php">Logout</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+            <?php endforeach; ?>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-
-                <form class="d-flex search">
-                    <input class="form-control me-auto " type="text" placeholder="Search" name="keyword" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit" name="cari" id="tombol-cari">Search</button>
-                </form>
-                <li class="sign">
-                    <a href="login.php">sign in</a>
-                </li>
-                <li class="sign">
-                    <a href="login.php">sign up</a>
-                </li>
-            </div>
         </div>
     </nav>
+
     <div id="search-results">
 
     </div>
+
+
 
     <script>
         // Ambil elemen input pencarian

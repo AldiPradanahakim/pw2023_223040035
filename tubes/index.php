@@ -11,6 +11,9 @@ if (isset($_POST["cari"])) {
   $news = cari($_POST["keyword"]);
 }
 
+
+
+
 ?>
 
 
@@ -28,6 +31,8 @@ if (isset($_POST["cari"])) {
   <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
+
+
   <script>
     $(document).ready(function() {
       $(".slider").bxSlider();
@@ -41,9 +46,10 @@ if (isset($_POST["cari"])) {
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Rubik:ital,wght@0,400;1,500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/responsive.css">
-  <title>Titik.news</title>
+  <title>ALL News</title>
 </head>
 <style>
   .search {
@@ -83,7 +89,7 @@ if (isset($_POST["cari"])) {
   <div id="container">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <div class="container-fluid">
-        <a class="navbar-brand" href="#">Titik.News</a>
+        <a class="navbar-brand" href="#">ALL News</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -132,8 +138,8 @@ if (isset($_POST["cari"])) {
 
 
     <!-- lastest news -->
-    <div class="container padd-5 " id="latest_news">
-      <div class="row">
+    <div class="container padd-5 ">
+      <div class="row " id="latest_news">
         <div class="section-title pt-4">
           <h2>LASTEST NEWS</h2>
         </div>
@@ -153,109 +159,105 @@ if (isset($_POST["cari"])) {
                     <p class="card-text"><?= $row["content"]; ?></p>
                     <div class="pt-4">
                       <a href="<?= $row["link"]; ?>" class="btn btn-primary">Read More</a>
-                      <div style="float: right; text-align: right; font-size:30px;">
-                        <i type="submit" name="save_btn" class="uil uil-bookmark-full"></i>
-                        <i type="submit" name="like_btn" class="uil uil-heart-alt"></i>
-                      </div>
                     </div>
                   </div>
                 </div>
               </div>
+              <?php $i++; ?>
+            <?php endforeach; ?>
             </div>
-            <?php $i++; ?>
-          <?php endforeach; ?>
         </div>
       </div>
-    </div>
-    <hr>
+      <hr>
 
-    <!-- sliders vidio -->
-    <div class="row" id="popular">
-      <div class="section-title pt-4">
-        <h2>Berita Terpopuler</h2>
-      </div>
-    </div>
-    <div class="slider">
-      <div>
-        <div class="row row-cols-1 row-cols-md-3 g-4">
-          <?php $i = 1; ?>
-          <?php foreach ($populars as $row) : ?>
-            <div class="col">
-              <div class="card h-100 border-0">
-                <img src="admin/img/<?= $row["gambar"]; ?>" class="card-img" alt="...">
-                <div class="card-body">
-                  <h5 class="card-title"><?= $row["title"]; ?></h5>
-                  <p class="card-text"><?= $row["content"]; ?></p>
-                </div>
-                <a href="<?= $row["link"]; ?>" class="btn btn-primary">Read More</a>
-              </div>
-            </div>
-            <?php $i++; ?>
-          <?php endforeach; ?>
+      <!-- sliders vidio -->
+      <div class="row" id="popular">
+        <div class="section-title pt-4">
+          <h2>Berita Terpopuler</h2>
         </div>
       </div>
-
-    </div>
-    <hr>
-
-    <!-- world -->
-    <div class="container" id="world">
-      <div class="row">
-        <div class="section-title">
-          <h2>WORLD</h2>
-        </div>
-      </div>
-      <div class="row ">
-        <div class="col-sm-8 world">
+      <div class="slider">
+        <div>
           <div class="row row-cols-1 row-cols-md-3 g-4">
             <?php $i = 1; ?>
-            <?php foreach ($worlds as $row) : ?>
+            <?php foreach ($populars as $row) : ?>
               <div class="col">
-                <div class="card border-0">
+                <div class="card h-100 border-0">
                   <img src="admin/img/<?= $row["gambar"]; ?>" class="card-img" alt="...">
                   <div class="card-body">
                     <h5 class="card-title"><?= $row["title"]; ?></h5>
                     <p class="card-text"><?= $row["content"]; ?></p>
-                    <a href="<?= $row["link"]; ?>" class="btn btn-primary">Read More</a>
                   </div>
+                  <a href="<?= $row["link"]; ?>" class="btn btn-primary">Read More</a>
                 </div>
               </div>
               <?php $i++; ?>
             <?php endforeach; ?>
           </div>
         </div>
-      </div>
-    </div>
-    <hr>
 
-    <!-- REKOMENDASI UNTUK ANDA -->
-    <div class="container" id="rekomendasi">
-      <div class="row">
-        <div class="section-title">
-          <h2>Rekomendasi Untuk Anda</h2>
-        </div>
       </div>
-      <div class="row">
-        <?php $i = 1; ?>
-        <?php foreach ($recommendations as $row) : ?>
-          <div class="col-sm-12 pt-2">
-            <div class="card border-0">
-              <img src="admin/img/<?= $row["gambar"]; ?>" class="card-img" alt="...">
-              <div class="card-body">
-                <h5 class="card-title"><?= $row["title"]; ?></h5>
-                <p class="card-text"><?= $row["content"]; ?></p>
-                <a href="<?= $row["link"] ?>" class="btn btn-primary">Read More</a>
-              </div>
+      <hr>
+
+      <!-- world -->
+      <div class="container" id="world">
+        <div class="row">
+          <div class="section-title pt-4">
+            <h2>WORLD</h2>
+          </div>
+        </div>
+        <div class="row ">
+          <div class="col-sm-8 world">
+            <div class="row row-cols-1 row-cols-md-3 g-4">
+              <?php $i = 1; ?>
+              <?php foreach ($worlds as $row) : ?>
+                <div class="col">
+                  <div class="card border-0">
+                    <img src="admin/img/<?= $row["gambar"]; ?>" class="card-img" alt="...">
+                    <div class="card-body">
+                      <h5 class="card-title"><?= $row["title"]; ?></h5>
+                      <p class="card-text"><?= $row["content"]; ?></p>
+                      <a href="<?= $row["link"]; ?>" class="btn btn-primary">Read More</a>
+                    </div>
+                  </div>
+                </div>
+                <?php $i++; ?>
+              <?php endforeach; ?>
             </div>
           </div>
-          <?php $i++; ?>
-        <?php endforeach; ?>
+        </div>
+      </div>
+      <hr>
+
+      <!-- REKOMENDASI UNTUK ANDA -->
+      <div class="container" id="rekomendasi">
+        <div class="row">
+          <div class="section-title">
+            <h2>Rekomendasi Untuk Anda</h2>
+          </div>
+        </div>
+        <div class="row">
+          <?php $i = 1; ?>
+          <?php foreach ($recommendations as $row) : ?>
+            <div class="col-sm-12 pt-2">
+              <div class="card border-0">
+                <img src="admin/img/<?= $row["gambar"]; ?>" class="card-img" alt="...">
+                <div class="card-body">
+                  <h5 class="card-title"><?= $row["title"]; ?></h5>
+                  <p class="card-text"><?= $row["content"]; ?></p>
+                  <a href="<?= $row["link"] ?>" class="btn btn-primary">Read More</a>
+                </div>
+              </div>
+            </div>
+            <?php $i++; ?>
+          <?php endforeach; ?>
+        </div>
       </div>
     </div>
   </div>
   <!-- footer -->
   <footer class="padd-5">
-    <div style="height: 3px; background-color: blue;"></div>
+    <div style="height: 3px; width: 100%; background-color: blue;"></div>
     <div class="container">
       <div class="row">
         <div class="col-md-5">
@@ -307,11 +309,10 @@ if (isset($_POST["cari"])) {
 
   </footer>
 
-
+            
     <!-- Option 1: Bootstrap Bundle with Popper -->
     <script src=" https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
               </script>
-              <script></script>
               <script src="node_modules/@glidejs/glide/dist/glide.min.js"></script>
               <!-- Option 2: Separate Popper and Bootstrap JS -->
               <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
@@ -319,8 +320,8 @@ if (isset($_POST["cari"])) {
 
 
 
-              <script src=" js/script.js">
-              </script>
+              <script src=" js/script.js"></script>
+
 </body>
 
 </html>

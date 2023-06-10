@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Halaman Admin</title>
+    <title>Halaman Admin ALL News</title>
     <link rel="stylesheet" href="../asset/css/admin.css" />
     <link rel="stylesheet" href="../asset/css/color.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" />
@@ -536,6 +536,68 @@
         justify-content: start;
         align-items: start;
     }
+
+    .about .container table {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .about .container th {
+        width: 150px;
+        height: 50px;
+        border: 1px solid white;
+    }
+
+    .about .container table .name {
+        background-color: #135589;
+        text-align: center;
+        font-size: 20px;
+    }
+
+    .about .container table .name .no {
+        width: 80px;
+    }
+
+    .about .container table .isi {
+        background-color: #3ddad7;
+        font-size: 15px;
+        font-weight: bold;
+    }
+
+    .about .container table .isi .no {
+        text-align: center;
+        background-color: #3ddad7;
+        padding: 5px;
+        border-bottom: 3px solid #135589;
+    }
+
+    .about .container table .isi .width {
+        width: 700px;
+    }
+
+    .about .container table .isi .title {
+        background-color: aquamarine;
+        padding: 5px;
+        border-bottom: 3px solid #135589;
+    }
+
+    .about .container table .isi .gambar {
+        text-align: center;
+        padding-top: 5px;
+    }
+
+    .about .container table .isi .uil {
+        font-size: 30px;
+        text-align: center;
+    }
+
+    .about .container .lihat {
+        display: flex;
+        justify-content: start;
+        align-items: start;
+    }
+
 
     @media (max-width: 1199px) {
         .aside {
