@@ -7,9 +7,9 @@ if (!isset($_SESSION['login'])) {
     header("Location: ../login.php");
     exit();
 }
-$recommendation_id = $_GET["recommendation_id"];
+$id = $_GET["id"];
 
-if (hapusrekomendasi($recommendation_id) > 0) {
+if (hapus($id) > 0) {
     echo "
             <script> 
                 alert('data berhasil dihapus!;');

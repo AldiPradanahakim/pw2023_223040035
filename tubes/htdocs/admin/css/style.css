@@ -1,0 +1,105 @@
+#container {
+  width: 80%;
+  margin: 0 auto;
+}
+
+.section-title h2 {
+  flex: 0 0 100%;
+}
+
+.card {
+  border-radius: 5px;
+}
+
+li {
+  list-style: none;
+}
+/* .section-title h2::after {
+  content: "";
+  height: 4px;
+  width: 25px;
+  background-color: red;
+  position: absolute;
+  } */
+
+.profile {
+  font-size: 50px;
+  transform: scale(1);
+}
+
+nav {
+  font-family: pacifico;
+}
+
+ul li {
+  list-style: none;
+  margin: 20px;
+  align-items: center !important;
+  width: 20rem;
+}
+
+ol li {
+  font-size: 15px;
+  font-family: rubik;
+}
+
+a {
+  color: black;
+  text-decoration: none;
+}
+
+li .save {
+  float: right;
+}
+
+.save {
+  font-size: 25px;
+}
+
+.carousel-indicators button.thumbnail {
+  width: 150px;
+}
+
+.carousel-indicators button.thumbnail:not(.active) {
+  opacity: 0.7px;
+}
+
+.carousel-indicators {
+  position: static;
+}
+
+.carousel {
+  max-width: 85%;
+  margin: 0 auto;
+}
+
+.padd-5 {
+  padding-top: 50px;
+}
+
+.container .world {
+  margin: 0 auto !important;
+  width: 80%;
+}
+
+/* .carousel-caption {
+position: absolute;
+top: 50%;
+transform: translateY(-50%);
+background-color: rgba(0,0,0,0.5);
+padding: 20px;
+color: #fff;
+width: 100%;
+text-align: center;
+}
+
+.carousel-caption h1 {
+font-size: 48px;
+font-weight: bold;
+margin-bottom: 20px;
+}
+
+.carousel-caption p {
+font-size: 24px;
+margin-bottom: 20px;
+} */

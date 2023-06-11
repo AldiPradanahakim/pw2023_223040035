@@ -7,9 +7,9 @@ if (!isset($_SESSION['login'])) {
     header("Location: ../login.php");
     exit();
 }
-$world_id = $_GET["world_id"];
+$id = $_GET["id"];
 
-if (hapusworld($world_id) > 0) {
+if (hapus($id) > 0) {
     echo "
             <script> 
                 alert('data berhasil dihapus!;');

@@ -1,0 +1,15 @@
+@media (max-width: 991px) {
+    .section-title h2::before {
+        left: 75px;
+    }
+
+    .section-title h2 {
+        font-size: 22px;
+    }
+}
+
+@media (max-width: 767px) {
+    .section-title h2::before{
+        left: 40px;
+    }
+}

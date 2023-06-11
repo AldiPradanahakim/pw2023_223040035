@@ -16,313 +16,22 @@ function query($query)
     return $rows;
 }
 
-
-
-// TAMBAH ATAU CREATE
-function tambahnews($data)
-{
-    // ambil data dari tiap elemen dalam form
-    global $conn;
-    $title = htmlspecialchars($data["title"]);
-    $content = htmlspecialchars($data["content"]);
-    $link = htmlspecialchars($data["link"]);
-    $gambar = htmlspecialchars($data["gambar"]);
-    $waktu = htmlspecialchars($data["waktu"]);
-    $tanggal = htmlspecialchars($data["tanggal"]);
-
-    // upload gambar
-    $gambar = upload();
-    if (!$gambar) {
-        return false;
-    }
-
-
-    // query insert data
-    $query = "INSERT INTO latest_news
-                VALUES 
-                (null, '$title', '$content', '$link', '$gambar', CURRENT_TIMESTAMP,  CURDATE())";
-
-    mysqli_query($conn, $query) or die(mysqli_error($conn));
-
-
-    return mysqli_affected_rows($conn);
-}
-
-function tambahpopular($data)
-{
-    // ambil data dari tiap elemen dalam form
-    global $conn;
-    $title = htmlspecialchars($data["title"]);
-    $content = htmlspecialchars($data["content"]);
-    $link = htmlspecialchars($data["link"]);
-    $gambar = htmlspecialchars($data["gambar"]);
-    $waktu = htmlspecialchars($data["waktu"]);
-    $tanggal = htmlspecialchars($data["tanggal"]);
-
-    // upload gambar
-    $gambar = upload();
-    if (!$gambar) {
-        return false;
-    }
-
-
-    // query insert data
-    $query = "INSERT INTO berita_terpopuler
-                VALUES 
-                (null, '$title', '$content', '$link', '$gambar',CURRENT_TIMESTAMP,  CURDATE())";
-
-    mysqli_query($conn, $query) or die(mysqli_error($conn));
-
-
-    return mysqli_affected_rows($conn);
-}
-
-function tambahrekomendasi($data)
-{
-    // ambil data dari tiap elemen dalam form
-    global $conn;
-    $title = htmlspecialchars($data["title"]);
-    $content = htmlspecialchars($data["content"]);
-    $link = htmlspecialchars($data["link"]);
-    $gambar = htmlspecialchars($data["gambar"]);
-    $waktu = htmlspecialchars($data["waktu"]);
-    $tanggal = htmlspecialchars($data["tanggal"]);
-
-    // upload gambar
-    $gambar = upload();
-    if (!$gambar) {
-        return false;
-    }
-
-
-    // query insert data
-    $query = "INSERT INTO rekomendasi_untuk_anda
-                VALUES 
-                (null, '$title', '$content', '$link', '$gambar',CURRENT_TIMESTAMP,  CURDATE())";
-
-    mysqli_query($conn, $query) or die(mysqli_error($conn));
-
-
-    return mysqli_affected_rows($conn);
-}
-
-function tambahworld($data)
-{
-    // ambil data dari tiap elemen dalam form
-    global $conn;
-    $title = htmlspecialchars($data["title"]);
-    $content = htmlspecialchars($data["content"]);
-    $link = htmlspecialchars($data["link"]);
-    $gambar = htmlspecialchars($data["gambar"]);
-    $waktu = htmlspecialchars($data["waktu"]);
-    $tanggal = htmlspecialchars($data["tanggal"]);
-
-    // upload gambar
-    $gambar = upload();
-    if (!$gambar) {
-        return false;
-    }
-
-
-    // query insert data
-    $query = "INSERT INTO world
-                VALUES 
-                (null, '$title', '$content', '$link', '$gambar', CURRENT_TIMESTAMP,  CURDATE())";
-
-    mysqli_query($conn, $query) or die(mysqli_error($conn));
-
-
-    return mysqli_affected_rows($conn);
-}
-
-function upload()
-{
-    // ambil nama file gambar
-    $namaFile = $_FILES['gambar']['name'];
-    $ukuranFile = $_FILES['gambar']['size'];
-    $eror = $_FILES['gambar']['error'];
-    $tmpName = $_FILES['gambar']['tmp_name'];
-
-    // cek apakah tidak ada gambar yang diupload
-    if ($eror == 4) {
-        echo "<script>
-                alert('Gambar tidak ditemukan!');
-                </script>";
-        return false;
-    }
-
-    // cek apakah yang diupload adalah gambar
-    $ekstensiGambarValid = ['jpg', 'jpeg', 'png'];
-    $ekstensiGambar = explode('.', $namaFile);
-    $ekstensiGambar = strtolower(end($ekstensiGambar));
-    if (!in_array($ekstensiGambar, $ekstensiGambarValid)) {
-        echo "<script>
-                alert('Ekstensi gambar tidak sesuai!');
-                </script>";
-    }
-
-    // cek jika ukurannya terlalu besar 
-    if ($ukuranFile > 2000000) {
-        echo "<script>
-            alert('Ukuran gambar terlalu besar!');
-            </script>";
-        return false;
-    }
-
-    // generate nama gambar baru
-    $namaFileBaru = uniqid();
-    $namaFileBaru .= '.';
-    $namaFileBaru .= $ekstensiGambar;
-
-    // lolos pengecekan, gambar siap diupload
-    move_uploaded_file($tmpName, 'img/' . $namaFileBaru);
-
-    return $namaFileBaru;
-}
-
-
 // HAPUS ATAU DELET
-function hapusnews($news_id)
+function hapus($id)
 {
     global $conn;
-    mysqli_query($conn, "DELETE FROM latest_news WHERE news_id = $news_id");
+    mysqli_query($conn, "DELETE FROM news WHERE id = $id");
 
     return mysqli_affected_rows($conn);
 }
-
-function hapuspopular($popular_id)
-{
-    global $conn;
-    mysqli_query($conn, "DELETE FROM berita_terpopuler WHERE popular_id = $popular_id");
-
-    return mysqli_affected_rows($conn);
-}
-
-function hapusrekomendasi($recommendation_id)
-{
-    global $conn;
-    mysqli_query($conn, "DELETE FROM rekomendasi_untuk_anda WHERE recommendation_id = $recommendation_id");
-
-    return mysqli_affected_rows($conn);
-}
-
-function hapusworld($world_id)
-{
-    global $conn;
-    mysqli_query($conn, "DELETE FROM world WHERE world_id = $world_id");
-
-    return mysqli_affected_rows($conn);
-}
-
 
 // UBAH ATAU UPDATE
-function ubahnews($data)
+function ubah($data)
 {
     // ambil data dari tiap elemen dalam form
     global $conn;
-    $news_id = ($data["news_id"]);
-    $title = htmlspecialchars($data["title"]);
-    $content = htmlspecialchars($data["content"]);
-    $link = htmlspecialchars($data["link"]);
-    $gambarLama = htmlspecialchars($data["gambarLama"]);
-
-
-    // cek apakah user pilih gambar baru atau tidak
-    if ($_FILES['gambar']['error'] === 4) {
-        $gambar = $gambarLama;
-    } else {
-        $gambar = upload();
-    }
-
-
-
-    // query insert data
-    $query = "UPDATE  latest_news SET
-            title = '$title',
-            content = '$content',
-            link = '$link',
-            gambar = '$gambar'
-            WHERE news_id = $news_id
-            ";
-
-    mysqli_query($conn, $query);
-
-    return mysqli_affected_rows($conn);
-}
-
-function ubahpopular($data)
-{
-    // ambil data dari tiap elemen dalam form
-    global $conn;
-    $popular_id = ($data["popular_id"]);
-    $title = htmlspecialchars($data["title"]);
-    $content = htmlspecialchars($data["content"]);
-    $link = htmlspecialchars($data["link"]);
-    $gambarLama = htmlspecialchars($data["gambarLama"]);
-
-
-    // cek apakah user pilih gambar baru atau tidak
-    if ($_FILES['gambar']['error'] === 4) {
-        $gambar = $gambarLama;
-    } else {
-        $gambar = upload();
-    }
-    // cek apakah user pilih gambar baru atau tidak
-
-    // query insert data
-    $query = "UPDATE  latest_news SET
-            title = '$title',
-            content = '$content',
-            link = '$link',
-            gambar = '$gambar'
-            WHERE popular_id = $popular_id
-            ";
-
-    mysqli_query($conn, $query);
-
-    return mysqli_affected_rows($conn);
-}
-
-function ubahrekomendasi($data)
-{
-    // ambil data dari tiap elemen dalam form
-    global $conn;
-    $recommendation_id = ($data["recommendation_id"]);
-    $title = htmlspecialchars($data["title"]);
-    $content = htmlspecialchars($data["content"]);
-    $link = htmlspecialchars($data["link"]);
-    $gambarLama = htmlspecialchars($data["gambarLama"]);
-
-
-    // cek apakah user pilih gambar baru atau tidak
-    if ($_FILES['gambar']['error'] === 4) {
-        $gambar = $gambarLama;
-    } else {
-        $gambar = upload();
-    }
-
-
-
-    // query insert data
-    $query = "UPDATE  rekomendasi_untuk_anda SET
-            title = '$title',
-            content = '$content',
-            link = '$link',
-            gambar = '$gambar'
-            WHERE recommendation_id = $recommendation_id
-            ";
-
-    mysqli_query($conn, $query);
-
-    return mysqli_affected_rows($conn);
-}
-
-function ubahworld($data)
-{
-    // ambil data dari tiap elemen dalam form
-    global $conn;
-    $world_id = ($data["world_id"]);
-    $title = htmlspecialchars($data["title"]);
+    $id = ($data["id"]);
+    $tittle = htmlspecialchars($data["tittle"]);
     $content = htmlspecialchars($data["content"]);
     $link = htmlspecialchars($data["link"]);
     $gambarLama = htmlspecialchars($data["gambarLama"]);
@@ -336,12 +45,12 @@ function ubahworld($data)
     }
 
     // query insert data
-    $query = "UPDATE  world SET
-            title = '$title',
+    $query = "UPDATE news SET
+            tittle = '$tittle',
             content = '$content',
             link = '$link',
             gambar = '$gambar'
-            WHERE world_id = $world_id
+            WHERE id = $id
             ";
 
     mysqli_query($conn, $query);
@@ -412,4 +121,77 @@ function registrasi($data)
     mysqli_query($conn, $query);
 
     return mysqli_affected_rows($conn);
+}
+
+function tambah($data)
+{
+    global $conn;
+    // ambil data dari tiap elemen dalam form
+    $tittle = htmlspecialchars($data['tittle']);
+    $link = htmlspecialchars($data['link']);
+    $content = htmlspecialchars($data['content']);
+    $kategori_id = htmlspecialchars($data['kategori_id']);
+
+
+    // UP GAMBAR
+    $gambar = upload();
+    if (!$gambar) {
+        return false;
+    }
+
+    // INSERT DATA 
+    $query = "INSERT INTO news (tittle, content, link, gambar, waktu, tanggal, kategori_id)
+    VALUES ('$tittle', '$content', '$link', '$gambar', CURRENT_TIMESTAMP,  CURDATE(), '$kategori_id')";
+    mysqli_query($conn, $query);
+
+    return mysqli_affected_rows($conn);
+}
+
+function upload()
+{
+    $namafile = $_FILES['gambar']['name'];
+    $ukuranfile = $_FILES['gambar']['size'];
+    $error = $_FILES['gambar']['error'];
+    $tmpName = $_FILES['gambar']['tmp_name'];
+
+
+    //cek apakah tidak ada gambar yang di upload
+    $error = $_FILES['gambar']['error'];
+
+    // cek apakah tidak ada gambar yang diupload
+    if ($error === 4) {
+        echo "<script>
+    alert('Pilih gambar terlebih dahulu')
+    </script>";
+        return false;
+    }
+
+    // CEK VALIDASI GAMBAR
+    $ekstensigambarValid = ['jpg', 'jpeg', 'png'];
+    $ekstensigambar = explode('.', $namafile);
+    $ekstensigambar = strtolower(end($ekstensigambar));
+    if (!in_array($ekstensigambar, $ekstensigambarValid)) {
+        echo "<script>
+        alert('yang anda upload bukan gambar')
+        </script>";
+        return false;
+    }
+
+    // CEK SIZE GAMBAR 
+    if ($ukuranfile > 1000000) {
+        echo "<script>
+        alert('ukuran gambar terlalu besar')
+        </script>";
+        return false;
+    }
+
+    // LOLOS CEK, SIAP UPLOAD
+    // GENERATE NEW NAME
+    $namafilebaru = uniqid();
+    $namafilebaru .= '.';
+    $namafilebaru .= $ekstensigambar;
+
+    move_uploaded_file($tmpName, 'img/' . $namafilebaru);
+
+    return $namafilebaru;
 }

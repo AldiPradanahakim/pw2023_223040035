@@ -5,26 +5,11 @@ require '../functions.php';
 $keyword = isset($_GET['keyword']) ? $_GET['keyword'] : '';
 
 // Query tampil barang
-$news = query("SELECT * FROM latest_news");
+$news = query("SELECT * FROM news");
 
 // Jika terdapat parameter "cari" dan input pencarian tidak kosong
 if (isset($_GET['cari']) && !empty($keyword)) {
-    $news = query("SELECT ln.*
-    FROM latest_news ln
-    WHERE ln.title LIKE '%$keyword%' OR ln.content LIKE '%$keyword%'
-    UNION
-    SELECT w.*
-    FROM world w
-    WHERE w.title LIKE '%$keyword%' OR w.content LIKE '%$keyword%'
-    UNION
-    SELECT ra.*
-    FROM rekomendasi_untuk_anda ra
-    WHERE ra.title LIKE '%$keyword%' OR ra.content LIKE '%$keyword%'
-    UNION
-    SELECT bt.*
-    FROM berita_terpopuler bt
-    WHERE bt.title LIKE '%$keyword%' OR bt.content LIKE '%$keyword%';
-    ");
+    $news = query("SELECT * FROM news JOIN kategori ON news.kategori_id = kategori.id WHERE content LIKE '%keyword%' OR tittle LIKE '%keyword%'");
 }
 
 ?>
@@ -74,11 +59,9 @@ if (isset($_GET['cari']) && !empty($keyword)) {
     }
 
     .sign {
-        border: 1px solid;
         border-radius: 5px;
         width: 100px;
         height: 40px;
-        background-color: blue;
         align-items: center;
         text-align: center;
         font-size: 20px;
@@ -102,27 +85,34 @@ if (isset($_GET['cari']) && !empty($keyword)) {
         padding: 0;
         margin: 0;
     }
+
+    nav {
+        height: 70px;
+    }
 </style>
 
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">ALL News</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary  fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                ALL NEWS
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span><i class="fa-solid fa-bars text-light"></i></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-
-                <form class="d-flex search">
-                    <input class="form-control me-auto " type="text" placeholder="Search" name="keyword" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit" name="cari" id="tombol-cari">Search</button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <form action="admin/partials/search.php" method="get" class="search d-flex ms-auto my-4" role="search">
+                    <input name="keyword" id="keyword" class="search-input form-control me-2 rounded-pill" type="search" placeholder="Cari berita..." aria-label="Search" autofocus autocomplete="off" />
+                    <button name="cari" id="tombol-cari" class="search-btn btn btn-light rounded-pill" type="submit">
+                        <i class="fa fa-search" aria-hidden="true"></i>
+                    </button>
                 </form>
                 <li class="sign">
-                    <a href="login.php">sign in</a>
+                    <a href="../../login.php">sign in</a>
                 </li>
                 <li class="sign">
-                    <a href="login.php">sign up</a>
+                    <a href="../../login.php">sign up</a>
                 </li>
             </div>
         </div>
@@ -156,7 +146,8 @@ if (isset($_GET['cari']) && !empty($keyword)) {
             xhr.send();
         });
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
+    </script>
 </body>
 
 </html>
