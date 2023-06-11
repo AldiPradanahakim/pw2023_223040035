@@ -9,7 +9,7 @@ tittle LIKE '%$keyword%';");
 
 // Jika hasil pencarian kosong
 if (count($news) == 0) {
-    echo '<h3 class="pesan text-center pt-5">"Berita tidak tersedia"</h3>';
+    echo '<h3 class="pesan text-center pt-5">""</h3>';
 } else {
     foreach ($news as $n) {
         echo '

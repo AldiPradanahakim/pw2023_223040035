@@ -88,16 +88,24 @@ $user = mysqli_fetch_assoc($result);
         display: flex;
     }
 
-    .dropdown-content img {
-        width: 90px;
-        height: 80px;
+    .dropdown img {
+        width: 70px;
+        height: 70px;
         border-radius: 50%;
-        margin-right: 10px;
         overflow: hidden;
     }
 
     .dropdown:hover .dropdown-content {
         display: block;
+    }
+
+    @media (max-width: 576px) {
+
+
+        .navbar-brand .navbar-collapse .navbar-nav {
+            margin-left: 0px !important;
+            margin-right: 200px !important;
+        }
     }
 
     nav {
@@ -116,47 +124,48 @@ $user = mysqli_fetch_assoc($result);
 
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-5  fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top mb-5 justify-content-center">
         <div class="container">
-            <a class="navbar-brand" href="#">
-                ALL NEWS
-            </a>
+            <a class="navbar-brand" href="#">ALL NEWS</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span><i class="fa-solid fa-bars text-light"></i></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-                <form method="get" class="search d-flex ms-auto my-4" role="search">
+                <form action="admin/partials/search.login.php" method="get" class="search d-flex ms-auto my-4" role="search">
                     <input name="keyword" id="keyword" class="search-input form-control me-2 rounded-pill" type="search" placeholder="Cari berita..." aria-label="Search" autofocus autocomplete="off" />
                     <button name="cari" id="tombol-cari" class="search-btn btn btn-light rounded-pill" type="submit">
                         <i class="fa fa-search" aria-hidden="true"></i>
                     </button>
                 </form>
-                <li>
-                    <div class="dropdown">
-                        <span><img src="../../img/profile.jpg" alt=""></span>
-                        <div class="dropdown-content">
-                            <ul>
-                                <li class="name">
-                                    <img src="../../img/profile.jpg" alt="">
-                                    <p>username : <?= $user["username"]; ?></p>
-                                </li>
-                                <li>
-                                    <p>nama : <?= $user['nama']; ?></p>
-                                    <p>email : <?= $user['email']; ?></p>
-                                </li>
-                                <li>
-                                    <hr>
-                                </li>
-                                <li>
-                                    <a href="../../logout.php">Logout</a>
-                                </li>
-                            </ul>
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <div class="dropdown">
+                            <img src="../../img/profile.jpg" alt="" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <div class="dropdown-menu dropdown-menu-right">
+                                <ul>
+                                    <li class="name">
+                                        <img src="../../img/profile.jpg" alt="">
+                                        <p>username: <?= $user["username"]; ?></p>
+                                    </li>
+                                    <li>
+                                        <p>nama: <?= $user['nama']; ?></p>
+                                        <p>email: <?= $user['email']; ?></p>
+                                    </li>
+                                    <li>
+                                        <hr>
+                                    </li>
+                                    <li>
+                                        <a href="../../logout.php">Logout</a>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
-                    </div>
-                </li>
+                    </li>
+                </ul>
             </div>
         </div>
     </nav>
+
     <div id="search-results">
 
     </div>
