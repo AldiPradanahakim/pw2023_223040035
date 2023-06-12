@@ -284,11 +284,11 @@ if (isset($_POST["cari"])) {
         <div style="height: 3px; width: 100%; background-color: blue;"></div>
         <div class="container">
             <div class="row">
-                <div class="col-md-5">
-                    <h3>Titik News</h3>
+                <div class="col-md-5 pt-2">
+                    <h3>ALL News</h3>
                     <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3961.1902773276856!2d107.5919273!3d-6.867788699999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e68e71cb76767dd%3A0x56fb391efe22f815!2s24%20E!5e0!3m2!1sid!2sid!4v1685733864647!5m2!1sid!2sid" width="400" height="250" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-4 pt-2">
                     <h3>Kategori</h3>
                     <div class="row">
                         <div class="col-12 col-md-3 me-4">
@@ -312,7 +312,7 @@ if (isset($_POST["cari"])) {
                     </div>
                 </div>
 
-                <div class="col-md-3">
+                <div class="col-md-3 pt-2">
                     <h3>Sosial Media</h3>
                     <ul class="social-media">
                         <li><a href="#"><i class="uil uil-instagram"> aldprdnhkm8</i></a></li>
@@ -326,7 +326,7 @@ if (isset($_POST["cari"])) {
             <div class="container">
                 <div class="row">
                     <div class="text-center pt-4">
-                        <p class="text-muted" style="font-size: 18px; margin-bottom: 0;"">Copyright &copy; 2023 Titik News All right reserved.</p>
+                        <p class="text-muted" style="font-size: 18px; margin-bottom: 0;"">Copyright &copy; 2023 ALL News All right reserved.</p>
           </div>
         </div>
       </div>
